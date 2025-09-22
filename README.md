@@ -1,52 +1,64 @@
 # Projeto 4 com Spring Boot + JPA
 
-Este projeto é uma refatoração do sistema anterior baseado em JDBC, agora utilizando o framework **Spring Boot** e a especificação **JPA (Java Persistence API)** para a camada de persistência.
+Este projeto é uma refatoração de um sistema de vendas que inicialmente usava JDBC, agora com a camada de persistência baseada em **JPA (Java Persistence API)** e **Spring Boot**. A mudança simplifica a gestão de dados, substituindo o código manual do JDBC por interfaces automáticas do **Spring Data JPA**.
 
-A mudança de JDBC para JPA com Spring Boot simplifica a interação com o banco de dados, eliminando o código boilerplate de conexão e as queries SQL manuais. Em vez disso, utilizamos o **Spring Data JPA**, que nos permite definir repositórios de dados através de interfaces, com métodos que o próprio Spring implementa automaticamente.
+### **Tecnologias Utilizadas**
 
-### Tecnologias
+* **Java 17**
+* **Spring Boot 3.2.1**
+* **Maven**
+* **JPA / Hibernate**
+* **PostgreSQL**
+* **Lombok**
 
-- **Java 17**
-- **Spring Boot 3.2.1**
-- **Maven**
-- **JPA / Hibernate**
-- **PostgreSQL**
-- **Lombok** (para simplificar as classes de entidade)
+### **Entidades e Relacionamentos**
 
-### Estrutura do Projeto
+O projeto simula um sistema de vendas com as seguintes entidades e seus relacionamentos:
 
-- `src/main/java/com/luisjpa/domain`: Contém as classes de entidade (`Cliente`, `Produto`, `Venda`, `ProdutoQuantidade`) mapeadas para as tabelas do banco de dados usando anotações JPA.
-- `src/main/java/com/luisjpa/repository`: Interfaces que estendem `JpaRepository`, permitindo operações CRUD (Create, Read, Update, Delete) prontas para uso.
-- `src/main/java/com/luisjpa/service`: Camada de serviço que contém a lógica de negócio, utilizando os repositórios.
-- `src/main/resources/application.properties`: Arquivo de configuração para a conexão com o banco de dados e propriedades do JPA.
-- `pom.xml`: Gerencia as dependências do projeto.
+* **Cliente**: Entidade que representa o cliente.
+* **Produto**: Entidade que representa um produto do catálogo.
+* **Venda**: Representa uma transação de venda.
+  * Relacionamento **`Many-to-One`** com `Cliente` (uma venda tem um cliente).
+  * Relacionamento **`One-to-Many`** com `ProdutoQuantidade` (uma venda pode ter vários produtos).
+* **ProdutoQuantidade**: Entidade de junção que registra a quantidade e o valor de um produto em uma venda.
+  * Relacionamento **`Many-to-One`** com `Produto` (um item se refere a um produto).
+  * Relacionamento **`Many-to-One`** com `Venda` (um item pertence a uma venda específica).
 
-### Modelagem de Dados
+### **Configuração do Ambiente**
 
-O modelo de dados reflete o projeto original e seus relacionamentos:
+1.  **Banco de Dados PostgreSQL**: Crie um banco de dados e configure a conexão no arquivo `application.properties`.
+2.  **`application.properties`**:
 
-- `Cliente`: Uma entidade simples.
-- `Produto`: Uma entidade simples.
-- `Venda`: Tem uma relação **ManyToOne** com `Cliente` (uma venda pertence a um cliente) e uma relação **OneToMany** com `ProdutoQuantidade` (uma venda pode ter vários produtos).
-- `ProdutoQuantidade`: Representa um item de venda, com uma relação **ManyToOne** com `Produto` (cada item tem um produto) e uma relação **ManyToOne** com `Venda` (cada item pertence a uma venda).
+    ```properties
+    # Configuração do PostgreSQL
+    spring.datasource.url=jdbc:postgresql://localhost:5432/nome_do_seu_banco
+    spring.datasource.username=seu_usuario
+    spring.datasource.password=sua_senha
+    spring.datasource.driver-class-name=org.postgresql.Driver
 
-### Como Executar o Projeto
+    # Configuração do JPA/Hibernate
+    spring.jpa.hibernate.ddl-auto=update
+    spring.jpa.show-sql=true
+    spring.jpa.properties.hibernate.format_sql=true
+    ```
 
-1.  **Configure o Banco de Dados:** Certifique-se de que o PostgreSQL está instalado e em execução. Crie um banco de dados e ajuste as configurações de `url`, `username` e `password` no arquivo `src/main/resources/application.properties`.
+    *A propriedade `spring.jpa.hibernate.ddl-auto=update` fará com que o Hibernate crie as tabelas automaticamente na primeira execução.*
 
-2.  **Execute a Aplicação:**
-    - Abra o terminal na pasta raiz do projeto.
-    - Execute o comando Maven:
-    ```sh
+### **Como Executar o Projeto**
+
+1.  Abra o terminal na pasta raiz do projeto (`projeto-4-jpa`).
+2.  Execute o comando do Maven:
+
+    ```bash
     mvn spring-boot:run
     ```
-    O Spring Boot irá iniciar a aplicação, criar as tabelas no banco de dados (graças à propriedade `ddl-auto=update`), e você poderá interagir com a aplicação.
 
-3.  **Execute os Testes Unitários:**
-    - Para verificar se tudo está funcionando corretamente, rode os testes:
-    ```sh
-    mvn test
-    ```
-    - O resultado deve ser `BUILD SUCCESS`.
+## Contato
 
-Este projeto está pronto para ser enviado ao professor para avaliação.
+Para dúvidas ou sugestões, entre em contato:
+
+*   **Gmail**: lh5818181@gmail.com
+*   **GitHub (Profissional)**: [devhenriquejs](https://github.com/devhenriquejs)
+*   **GitHub (Estudos)**: [lh5818181](https://github.com/lh5818181)
+*   **LinkedIn**: [Luis Henrique Vieira de Oliveira](https://www.linkedin.com/in/luis-henrique-76245231a/)
+
