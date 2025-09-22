@@ -9,7 +9,7 @@ Este projeto é uma refatoração de um sistema de vendas que inicialmente usava
 * **Maven**
 * **JPA / Hibernate**
 * **PostgreSQL**
-* **Lombok**
+
 
 ### **Entidades e Relacionamentos**
 
