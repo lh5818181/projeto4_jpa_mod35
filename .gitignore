@@ -1,0 +1,51 @@
+# .gitignore
+### Java
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Eclipse
+.classpath
+.project
+.settings/
+.vscode/
+
+# IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+/out/
+/target/
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.bak
+release.properties
+dependency-reduced-pom.xml
+build/
+.mvn/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Spring Boot
+/bin/
+!/.gitkeep
+!/lib/
+!/resources/
+!/WEB-INF/
+!/META-INF/
+
+# Arquivos gerados no desenvolvimento
+*.log
+*.jar
+*.war
+*.zip
+*.tar.gz
